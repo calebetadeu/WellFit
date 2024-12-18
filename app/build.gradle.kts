@@ -2,11 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
-
-
 }
 
 android {
@@ -19,13 +17,14 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         debug {
             buildConfigField("String", "BASE_URL", "\"https://api.coincap.io/v2/\"")
+            buildConfigField("String", "GOOGLE_WEB_CLIENT_ID", "\"532646113571-dstfo4q8ii83l8hdokbg3nf1m40m3erf.apps.googleusercontent.com\"")
+
         }
         release {
             isMinifyEnabled = false
@@ -54,6 +53,7 @@ room {
 }
 
 dependencies {
+    implementation(libs.androidx.compose.navigation)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -77,6 +77,18 @@ dependencies {
 
     implementation(libs.androidx.credentials.core)
     implementation(libs.androidx.credentials.compat)
+    implementation(libs.android.credentials.identity)
+
+    implementation(platform(libs.firebase.bom))
+    implementation (libs.play.services.auth)
+
+
+    // Add the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation(libs.firebase.auth)
+
+    // Also add the dependency for the Google Play services library and specify its version
+    implementation(libs.play.services.auth)
 
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 
