@@ -2,11 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
-
-
 }
 
 android {
@@ -19,13 +17,14 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         debug {
             buildConfigField("String", "BASE_URL", "\"https://api.coincap.io/v2/\"")
+            buildConfigField("String", "GOOGLE_WEB_CLIENT_ID", "\"532646113571-dstfo4q8ii83l8hdokbg3nf1m40m3erf.apps.googleusercontent.com\"")
+
         }
         release {
             isMinifyEnabled = false
@@ -54,6 +53,7 @@ room {
 }
 
 dependencies {
+    implementation(libs.androidx.compose.navigation)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -74,9 +74,23 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+//
+//    implementation(libs.androidx.credentials.core)
+//    implementation(libs.androidx.credentials.compat)
+//    implementation(libs.android.credentials.identity)
 
-    implementation(libs.androidx.credentials.core)
-    implementation(libs.androidx.credentials.compat)
+    implementation(platform(libs.firebase.bom))
+    implementation (libs.play.services.auth)
+
+    implementation ("androidx.credentials:credentials:1.3.0")
+    implementation ("androidx.credentials:credentials-play-services-auth:1.3.0")
+    implementation ("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+    // Add the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation(libs.firebase.auth)
+
+    // Also add the dependency for the Google Play services library and specify its version
+    implementation(libs.play.services.auth)
 
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 
