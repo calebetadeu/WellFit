@@ -74,17 +74,15 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-//
-//    implementation(libs.androidx.credentials.core)
-//    implementation(libs.androidx.credentials.compat)
-//    implementation(libs.android.credentials.identity)
+
+    implementation(libs.androidx.credentials.core)
+    implementation(libs.androidx.credentials.compat)
+    implementation(libs.android.credentials.identity)
 
     implementation(platform(libs.firebase.bom))
     implementation (libs.play.services.auth)
 
-    implementation ("androidx.credentials:credentials:1.3.0")
-    implementation ("androidx.credentials:credentials-play-services-auth:1.3.0")
-    implementation ("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+
     // Add the dependency for the Firebase Authentication library
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation(libs.firebase.auth)
